@@ -1,0 +1,46 @@
+import java.util.*;
+
+public class LeetCode {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int m = sc.nextInt();
+                int n = sc.nextInt();
+
+                int[] nums1 = new int[m + n];
+                for (int i = 0; i < m; i++) {
+                    nums1[i] = sc.nextInt();
+                }
+
+                int[] nums2 = new int[n];
+                for (int i = 0; i < n; i++) {
+                    nums2[i] = sc.nextInt();
+                }
+
+                // Fill the last n positions of nums1 with 0s (to be ignored initially)
+                for (int i = m; i < m + n; i++) {
+                    nums1[i] = 0;
+                }
+
+                merge(nums1, m, nums2, n);
+
+                for (int i = 0; i < m + n; i++) {
+                    System.out.print(nums1[i] + " ");
+                }
+
+                sc.close();
+            }
+
+            public static void merge(int[] nums1, int m, int[] nums2, int n) {
+                int p1 = m - 1; // Last element pointer in nums1
+                int p2 = n - 1; // Last element pointer in nums2
+                int i = m + n - 1; // Last position to fill in nums1
+
+                while (p2 >= 0) {
+                    if (p1 >= 0 && nums1[p1] > nums2[p2]) {
+                        nums1[i--] = nums1[p1--];
+                    } else {
+                        nums1[i--] = nums2[p2--];
+                    }
+                }
+            }
+        }
