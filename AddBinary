@@ -1,0 +1,23 @@
+import java.util.*;
+public class BinarySum {
+    public static String addBinary(String a, String b) {
+        StringBuilder result = new StringBuilder();
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0;  // To store the carry
+         while (i >= 0 || j >= 0 || carry == 1) {
+            int bitA = i >= 0 ? a.charAt(i--) - '0' : 0;
+            int bitB = j >= 0 ? b.charAt(j--) - '0' : 0;
+            int sum = bitA + bitB + carry;
+            result.append(sum % 2);
+            carry = sum / 2;
+        }
+      return result.reverse().toString();
+    }
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+String a = sc.nextLine();
+String b = sc.nextLine();
+System.out.println("Result: " + addBinary(a, b));  // Output: "10101"
+    }
+}
