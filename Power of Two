@@ -1,0 +1,25 @@
+import java.util.*;
+class LeetCode {
+    public static boolean isPowerOfTwo(int n) {
+                if(n==1){
+            return true;
+        } 
+        while(n!=0){
+            if(n%2!=0){
+                return false;
+            }
+            if(n==2){
+                return true;
+            }else{
+                n=n/2;
+            }
+        }
+        return false;    
+    }
+public static void main(String[] atgs)
+{
+Scanner sc = new Scanner(System.in);
+int  n = sc.nextInt();
+System.out.println(isPowerOfTwo(n));
+}
+}
