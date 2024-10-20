@@ -1,0 +1,43 @@
+import java.util.*;
+class LeetCode
+{
+public static void main(String[] args)
+{
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+int[] g = new int[n];
+for(int i=0;i<n;i++)
+{
+g[i] = sc.nextInt();
+}
+int n1 = sc.nextInt();
+int[] s = new int[n];
+for(int i=0;i<n1;i++)
+{
+s[i] = sc.nextInt();
+}
+System.out.println(findContentChildren( g,s));
+
+}
+public int findContentChildren(int[] g, int[] s) {
+       if (s.length == 0) {
+            return 0;
+        }
+        Arrays.sort(g);
+        Arrays.sort(s);
+        
+        int i = 0; 
+        int j = 0; 
+        while (i < g.length && j < s.length) {
+            if (s[j] >= g[i]) {
+ 
+                i++;
+            }
+    
+            j++;
+        }
+        
+    
+        return i;
+    }
+}
