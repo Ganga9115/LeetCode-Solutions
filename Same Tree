@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+}
+
+class Solution {
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        if (p == null && q == null) {
+            return true;
+        } else if (p == null || q == null) {
+            return false;
+        } else if (p.val == q.val) {
+            return (isSameTree(p.left, q.left) && isSameTree(p.right, q.right));
+        } else {
+            return false;
+        }
+    }
+}
+
+public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        System.out.println("Enter elements for Tree 1 (Enter 'null' for no node):");
+        TreeNode p = createTree();
+
+        System.out.println("Enter elements for Tree 2 (Enter 'null' for no node):");
+        TreeNode q = createTree();
+
+        Solution solution = new Solution();
+        boolean result = solution.isSameTree(p, q);
+
+        System.out.println("Are the trees the same? " + result);
+    }
+
+    // Helper method to create a binary tree
+    private static TreeNode createTree() {
+        System.out.println("Enter the root value:");
+        String rootVal = scanner.next();
+
+        if (rootVal.equalsIgnoreCase("null")) {
+            return null;
+        }
+
+        TreeNode root = new TreeNode(Integer.parseInt(rootVal));
+        insertNode(root);
+        return root;
+    }
+
+    // Recursive method to insert nodes in level order
+    private static void insertNode(TreeNode root) {
+        System.out.println("Enter left child of " + root.val + " (or 'null'):");
+        String leftVal = scanner.next();
+        if (!leftVal.equalsIgnoreCase("null")) {
+            root.left = new TreeNode(Integer.parseInt(leftVal));
+            insertNode(root.left);
+        }
+
+        System.out.println("Enter right child of " + root.val + " (or 'null'):");
+        String rightVal = scanner.next();
+        if (!rightVal.equalsIgnoreCase("null")) {
+            root.right = new TreeNode(Integer.parseInt(rightVal));
+            insertNode(root.right);
+        }
+    }
+}
