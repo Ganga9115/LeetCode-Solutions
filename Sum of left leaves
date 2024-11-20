@@ -1,0 +1,101 @@
+import java.util.*;
+
+/**
+ * Definition for a binary tree node.
+ */
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {}
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
+    }
+}
+
+class Solution {
+    int sum = 0;
+
+    public int sumOfLeftLeaves(TreeNode root) {
+        helper(root, false);
+        return sum;
+    }
+
+    public void helper(TreeNode root, boolean left) {
+        if (root == null) return;
+
+        if (root.left == null && root.right == null && left) {
+            sum = sum + root.val;
+            return;
+        }
+
+        if (root.left != null) {
+            helper(root.left, true);
+        }
+
+        if (root.right != null) {
+            helper(root.right, false);
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Enter the number of nodes in the tree:");
+        int n = scanner.nextInt();
+
+        if (n == 0) {
+            System.out.println("Sum of left leaves: 0");
+            return;
+        }
+
+        System.out.println("Enter the values of nodes level-wise (use 'null' for no child):");
+        String[] input = new String[n];
+        for (int i = 0; i < n; i++) {
+            input[i] = scanner.next();
+        }
+
+        TreeNode root = buildTree(input);
+        Solution solution = new Solution();
+        int sum = solution.sumOfLeftLeaves(root);
+        System.out.println("Sum of left leaves: " + sum);
+    }
+
+    // Helper method to build the tree from level-order input
+    public static TreeNode buildTree(String[] input) {
+        if (input.length == 0 || input[0].equals("null")) return null;
+
+        TreeNode root = new TreeNode(Integer.parseInt(input[0]));
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+
+        int i = 1;
+        while (!queue.isEmpty() && i < input.length) {
+            TreeNode current = queue.poll();
+
+            if (!input[i].equals("null")) {
+                current.left = new TreeNode(Integer.parseInt(input[i]));
+                queue.offer(current.left);
+            }
+            i++;
+
+            if (i < input.length && !input[i].equals("null")) {
+                current.right = new TreeNode(Integer.parseInt(input[i]));
+                queue.offer(current.right);
+            }
+            i++;
+        }
+
+        return root;
+    }
+}
